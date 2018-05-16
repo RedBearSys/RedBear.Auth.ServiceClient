@@ -57,8 +57,6 @@ Console.ReadLine();
 
 Ensure you use the details provided by Red Bear in the `OAuth2Params` class.
 
-It goes without saying that access tokens expire! The calling code will need to manage the expiry scenario: i.e. establish that the current UTC date and time is *after* `token.Expires` and therefore request a new access token. 
-
 ### Managing Access Tokens
 
 Access tokens issued by Red Bear's Auth server are short-lived. When an access token expires, you'll need to obtain a new token to continue accessing APIs.
@@ -75,6 +73,6 @@ string token = await store.RetrieveAccessTokenAsync();
 
 Upon expiry, a new token will be obtained automatically when calling `RetrieveAccessTokenAsync()`.
 
-###Dependency Injection
+### Dependency Injection
 
 Both `OAuth2Client` and `AccessTokenStore` should be registered as singletons in your dependency container against their interface types (`IOAuth2Client` and `IAccessTokenStore` respectively).
