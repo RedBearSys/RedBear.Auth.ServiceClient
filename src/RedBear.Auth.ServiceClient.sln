@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedBear.Auth.ServiceClient", "RedBear.Auth.ServiceClient\RedBear.Auth.ServiceClient.csproj", "{8EA8C695-AAE4-4013-AEEC-31E43675629E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{160920BF-50EF-4F88-B683-3E8D814D442F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EA8C695-AAE4-4013-AEEC-31E43675629E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA8C695-AAE4-4013-AEEC-31E43675629E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA8C695-AAE4-4013-AEEC-31E43675629E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA8C695-AAE4-4013-AEEC-31E43675629E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{160920BF-50EF-4F88-B683-3E8D814D442F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{160920BF-50EF-4F88-B683-3E8D814D442F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{160920BF-50EF-4F88-B683-3E8D814D442F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{160920BF-50EF-4F88-B683-3E8D814D442F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03CD512B-246D-4C83-9666-72EEA37BACE8}
+	EndGlobalSection
+EndGlobal
