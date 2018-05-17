@@ -1,0 +1,9 @@
+<Project>
+	<PropertyGroup>
+	    <Copyright>Copyright ©2018 Red Bear Systems Limited</Copyright>
+	    <Company>Red Bear Systems Limited</Company>
+	    <Authors>Red Bear Systems Limited</Authors>
+	    <PackageIconUrl>https://rbpublic.blob.core.windows.net/assets/redbear_logo.png</PackageIconUrl>
+		<Version>1.0.0</Version>
+	</PropertyGroup>
+</Project>
