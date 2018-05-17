@@ -28,25 +28,25 @@ namespace UnitTests
         /// </summary>
         /// 
         //[Fact]
-        public async void IntegrationTest()
-        {
-            var httpClient = new HttpClient();
-            var reader = new FileReader();
-            var p = new OAuth2Params
-            {
-                ClientId = "MyTempApp",
-                Audience = "https://auth.supplier.redbearapp.io",
-                CertificateFilePath = "ServiceApp.cer",
-                Subject = "you@your-domain.co.uk",
-                Scopes = new[] { "https://auth.supplier.redbearapp.io/UI" },
-                AuthServerUri = new Uri("https://auth.supplier.redbearapp.io/connect/token")
-            };
+        //public async void IntegrationTest()
+        //{
+        //    var httpClient = new HttpClient();
+        //    var reader = new FileReader();
+        //    var p = new OAuth2Params
+        //    {
+        //        ClientId = "MyTempApp",
+        //        Audience = "https://auth.supplier.redbearapp.io",
+        //        CertificateFilePath = "ServiceApp.cer",
+        //        Subject = "you@your-domain.co.uk",
+        //        Scopes = new[] { "https://auth.supplier.redbearapp.io/UI" },
+        //        AuthServerUri = new Uri("https://auth.supplier.redbearapp.io/connect/token")
+        //    };
 
-            var client = new OAuth2Client(httpClient, reader, p);
-            var token = await client.GetAccessTokenAsync();
+        //    var client = new OAuth2Client(httpClient, reader, p);
+        //    var token = await client.GetAccessTokenAsync();
 
-            Assert.NotEmpty(token.Token);
-        }
+        //    Assert.NotEmpty(token.Token);
+        //}
 
         [Fact]
         public async void AccessTokenReceivedSuccessfully()
