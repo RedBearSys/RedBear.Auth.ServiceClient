@@ -39,7 +39,7 @@ namespace RedBear.Auth.ServiceClient
         public async Task<AccessToken> GetAccessTokenAsync()
         {
             // Build the JWT token
-            var jwt = GetJwt();
+            var jwt = await GetJwtAsync();
 
             // Build the POST form submission
             var form = new FormUrlEncodedContent(new[]
@@ -74,7 +74,7 @@ namespace RedBear.Auth.ServiceClient
         /// Creates a JWT signed with the RS256 algorithm
         /// </summary>
         /// <returns></returns>
-        private string GetJwt()
+        private async Task<string> GetJwtAsync()
         {
             var header = new
             {
@@ -97,12 +97,12 @@ namespace RedBear.Auth.ServiceClient
             var stringToSign = $"{headerEncoded}.{payloadEncoded}";
             var bytesToSign = Encoding.UTF8.GetBytes(stringToSign);
 
-            var signature = GenerateSignature(bytesToSign);
+            var signature = await GenerateSignatureAsync(bytesToSign);
 
             return $"{headerEncoded}.{payloadEncoded}.{signature}";
         }
 
-        public abstract string GenerateSignature(byte[] bytesToSign);
+        public abstract Task<string> GenerateSignatureAsync(byte[] bytesToSign);
 
         /// <summary>
         /// Converts a date and time to a Unix epoch value - i.e. seconds since 01/01/1970.

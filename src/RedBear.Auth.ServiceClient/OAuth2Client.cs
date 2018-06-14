@@ -4,6 +4,7 @@ using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using RedBear.Auth.ServiceClient.Io;
 using RedBear.Auth.ServiceClient.Net;
+using System.Threading.Tasks;
 
 namespace RedBear.Auth.ServiceClient
 {
@@ -28,7 +29,7 @@ namespace RedBear.Auth.ServiceClient
             _oauthParams = oauthParams;
         }
         
-        public override string GenerateSignature(byte[] bytesToSign)
+        public override Task<string> GenerateSignatureAsync(byte[] bytesToSign)
         {
             _fileReader.Open(_oauthParams.CertificateFilePath);
             var pemReader = new PemReader(_fileReader.Reader);
@@ -40,7 +41,7 @@ namespace RedBear.Auth.ServiceClient
             sig.Init(true, new RsaKeyParameters(true, privateKey.Modulus, privateKey.Exponent));
 
             sig.BlockUpdate(bytesToSign, 0, bytesToSign.Length);
-            return Base64UrlEncode(sig.GenerateSignature());
+            return Task.FromResult(Base64UrlEncode(sig.GenerateSignature()));
         }
     }
 }
