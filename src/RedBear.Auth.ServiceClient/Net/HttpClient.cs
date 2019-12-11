@@ -12,6 +12,13 @@ namespace RedBear.Auth.ServiceClient.Net
     {
         private readonly System.Net.Http.HttpClient _httpClient = new System.Net.Http.HttpClient();
 
+        public HttpClient()
+        {
+#if NET46
+                  System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;     
+#endif
+        }
+
         /// <summary>
         /// Sends the web request.
         /// </summary>
