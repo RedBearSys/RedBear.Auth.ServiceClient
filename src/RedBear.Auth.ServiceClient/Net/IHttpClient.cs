@@ -9,6 +9,11 @@ namespace RedBear.Auth.ServiceClient.Net
     public interface IHttpClient
     {
         /// <summary>
+        /// The System.Net.Http.HttpClient used by this IHttpClient.
+        /// </summary>
+        System.Net.Http.HttpClient DefaultHttpClient { get; }
+
+        /// <summary>
         /// Sends the web request.
         /// </summary>
         /// <param name="request">The request.</param>

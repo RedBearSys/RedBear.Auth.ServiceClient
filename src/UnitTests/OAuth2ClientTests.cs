@@ -1,4 +1,3 @@
-using Moq;
 using RedBear.Auth.ServiceClient;
 using RedBear.Auth.ServiceClient.Exceptions;
 using RedBear.Auth.ServiceClient.Io;
@@ -7,8 +6,10 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using FakeItEasy;
 using Xunit;
 using HttpClient = RedBear.Auth.ServiceClient.Net.HttpClient;
+#pragma warning disable xUnit1013
 
 namespace UnitTests
 {
@@ -51,14 +52,13 @@ namespace UnitTests
         [Fact]
         public async void AccessTokenReceivedSuccessfully()
         {
-            var httpClientMock = new Mock<IHttpClient>();
-            httpClientMock.Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(
+            var httpClient = A.Fake<IHttpClient>();
+            A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(
                 new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent("{ \"access_token\" : \"token\", \"expires_in\" : 5000 }",
                         Encoding.UTF8, "application/json")
                 });
-            var httpClient = httpClientMock.Object;
 
             var reader = new FileReader();
 
@@ -82,13 +82,12 @@ namespace UnitTests
         [Fact]
         public async void BadRequestFails()
         {
-            var httpClientMock = new Mock<IHttpClient>();
-            httpClientMock.Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(
+            var httpClient = A.Fake<IHttpClient>();
+            A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(
                 new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
                     Content = new StringContent(string.Empty, Encoding.UTF8, "application/json")
                 });
-            var httpClient = httpClientMock.Object;
 
             var reader = new FileReader();
 

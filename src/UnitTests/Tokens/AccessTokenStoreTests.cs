@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using RedBear.Auth.ServiceClient;
 using RedBear.Auth.ServiceClient.Tokens;
 using System;
@@ -14,21 +14,19 @@ namespace UnitTests.Tokens
         {
             var count = 0;
 
-            var clientMock = new Mock<IOAuth2Client>();
+            var client = A.Fake<IOAuth2Client>();
 
-            clientMock.Setup(x => x.GetAccessTokenAsync())
-                .Returns(() =>
+            A.CallTo(() => client.GetAccessTokenAsync())
+                .ReturnsLazily(() =>
                 {
-                    count = count + 1;
+                    count += 1;
                     return Task.FromResult(new AccessToken
                     {
                         Expires = DateTime.UtcNow.AddSeconds(5),
                         Token = $"myaccesstoken{count}"
                     });
                 });
-
-            var client = clientMock.Object;
-
+            
             var store = new AccessTokenStore(client);
 
             var token = await store.RetrieveAccessTokenAsync();
@@ -49,12 +47,12 @@ namespace UnitTests.Tokens
         {
             var count = 0;
 
-            var clientMock = new Mock<IOAuth2Client>();
+            var client = A.Fake<IOAuth2Client>();
 
-            clientMock.Setup(x => x.GetAccessTokenAsync())
-                .Returns(() =>
+            A.CallTo(() => client.GetAccessTokenAsync())
+                .ReturnsLazily(() =>
                 {
-                    count = count + 1;
+                    count += 1;
                     return Task.FromResult(new AccessToken
                     {
                         // Expire in 5 seconds on the first request, 20 minutes on the second.
@@ -62,9 +60,7 @@ namespace UnitTests.Tokens
                         Token = $"myaccesstoken{count}"
                     });
                 });
-
-            var client = clientMock.Object;
-
+            
             var store = new AccessTokenStore(client);
 
             var token = await store.RetrieveAccessTokenAsync();
@@ -88,16 +84,14 @@ namespace UnitTests.Tokens
         [Fact]
         public async void ManuallyUpdateToken()
         {
-            var clientMock = new Mock<IOAuth2Client>();
+            var client = A.Fake<IOAuth2Client>();
 
-            clientMock.Setup(x => x.GetAccessTokenAsync())
-                .Returns(() => Task.FromResult(new AccessToken
+            A.CallTo(() => client.GetAccessTokenAsync())
+                .ReturnsLazily(() => Task.FromResult(new AccessToken
                 {
                     Expires = DateTime.UtcNow.AddMinutes(20),
                     Token = "myaccesstoken"
                 }));
-
-            var client = clientMock.Object;
 
             var store = new AccessTokenStore(client);
 

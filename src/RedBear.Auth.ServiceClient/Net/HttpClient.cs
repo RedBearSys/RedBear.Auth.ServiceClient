@@ -13,6 +13,11 @@ namespace RedBear.Auth.ServiceClient.Net
         private readonly System.Net.Http.HttpClient _httpClient = new System.Net.Http.HttpClient();
 
         /// <summary>
+        /// The System.Net.Http.HttpClient used by this HttpClient.
+        /// </summary>
+        public System.Net.Http.HttpClient DefaultHttpClient => _httpClient;
+
+        /// <summary>
         /// Sends the web request.
         /// </summary>
         /// <param name="request">The request.</param>
