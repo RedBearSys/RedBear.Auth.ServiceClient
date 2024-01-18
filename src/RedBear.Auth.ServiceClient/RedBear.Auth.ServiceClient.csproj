@@ -5,6 +5,7 @@
     <Version>2.0.0</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Red Bear Software Limited</Authors>
+    <Company>Red Bear Software Limited</Company>
   </PropertyGroup>
 
   <ItemGroup>

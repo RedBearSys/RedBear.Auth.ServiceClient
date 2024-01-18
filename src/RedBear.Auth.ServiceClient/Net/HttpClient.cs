@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RedBear.Auth.ServiceClient.Net
@@ -25,6 +26,17 @@ namespace RedBear.Auth.ServiceClient.Net
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
             return await _httpClient.SendAsync(request);
+        }
+
+        /// <summary>
+        /// Sends the web request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="token">Cancellation token.</param>
+        /// <returns>The HTTP response result.</returns>
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
+        {
+            return await _httpClient.SendAsync(request, token);
         }
     }
 }
