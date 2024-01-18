@@ -24,6 +24,6 @@ jobs:
         run: dotnet restore src/RedBear.Auth.ServiceClient.sln
       - name: Build
         run: dotnet build src/RedBear.Auth.ServiceClient.sln --configuration Release --no-restore
-      - name: Publish the packages
-        if: github.ref == 'refs/heads/main'
+      - name: Publish the package
+        if: github.ref == 'refs/heads/master'
         run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }} --skip-duplicate
