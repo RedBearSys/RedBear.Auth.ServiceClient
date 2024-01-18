@@ -1,5 +1,5 @@
 # RedBear.Auth.ServiceClient
-OAuth2 service client for .NET Framework 4.6.1 and .NET Standard 2.0. Use it to get access tokens for Red Bear APIs.
+OAuth2 service client for .NET Framework 4.6.1 and .NET Standard 2.1. Use it to get access tokens for Red Bear APIs.
 
 ## Usage
 
