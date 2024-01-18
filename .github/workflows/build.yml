@@ -3,18 +3,19 @@ name: Build and Test
 on: [push]
 
 jobs:
-  Linux:
+  Windows:
     runs-on: windows-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-      - name: Update version number
-        uses: jacobtomlinson/gha-find-replace@v2
+      - name: Modify version number
+        uses: mingjun97/file-regex-replace
         with:
-          find: \.0\<\/Version\>
-          replace: ".${{github.run_number}}</Version>"
-          include: "**Directory.Build.props"
-          regex: true
+          regex: \.0\<\/Version\>
+          replacement: ".${{github.run_number}}</Version>"
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'RedBear\.Auth\.ServiceClient\.csproj'    # Optional, defaults to ".*"
+          path: 'src\RedBear.Auth.ServiceClient\'                   # Optional, defaults to '.'
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
