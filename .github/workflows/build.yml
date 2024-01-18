@@ -1,0 +1,28 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  Linux:
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Update version number
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: \.0\<\/Version\>
+          replace: ".${{github.run_number}}</Version>"
+          include: "**Directory.Build.props"
+          regex: true
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.x'
+      - name: Install dependencies
+        run: dotnet restore src/RedBear.Auth.ServiceClient.sln
+      - name: Build
+        run: dotnet build src/RedBear.Auth.ServiceClient.sln --configuration Release --no-restore
+      - name: Publish the packages
+        if: github.ref == 'refs/heads/main'
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }} --skip-duplicate
