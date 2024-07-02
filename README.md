@@ -68,7 +68,7 @@ The `AccessTokenStore` can be used as follows:
 ```c#
 // Use a singleton instance of oauth2Client
 var store = new AccessTokenStore(oauth2Client);
-string token = await store.RetrieveAccessTokenAsync();
+AccessToken token = await store.RetrieveAccessTokenAsync();
 ```
 
 Upon expiry, a new token will be obtained automatically when calling `RetrieveAccessTokenAsync()`.

@@ -9,6 +9,6 @@ namespace RedBear.Auth.ServiceClient.Tokens
     public interface IAccessTokenStore
     {
         Task StoreTokenAsync(AccessToken accessToken);
-        Task<string> RetrieveAccessTokenAsync();
+        Task<AccessToken> RetrieveAccessTokenAsync();
     }
 }

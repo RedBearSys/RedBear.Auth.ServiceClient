@@ -30,7 +30,7 @@ namespace UnitTests.Tokens
             var store = new AccessTokenStore(client);
 
             var token = await store.RetrieveAccessTokenAsync();
-            Assert.Equal("myaccesstoken1", token);
+            Assert.Equal("myaccesstoken1", token.Token);
 
             // Access Token should have expired within this timeframe.
             await Task.Delay(7000);
@@ -39,7 +39,7 @@ namespace UnitTests.Tokens
             // server.
             token = await store.RetrieveAccessTokenAsync();
 
-            Assert.Equal("myaccesstoken2", token);
+            Assert.Equal("myaccesstoken2", token.Token);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace UnitTests.Tokens
             var store = new AccessTokenStore(client);
 
             var token = await store.RetrieveAccessTokenAsync();
-            Assert.Equal("myaccesstoken1", token);
+            Assert.Equal("myaccesstoken1", token.Token);
 
             // Access Token should have expired within this timeframe.
             await Task.Delay(7000);
@@ -75,10 +75,10 @@ namespace UnitTests.Tokens
             var task2 = store.RetrieveAccessTokenAsync();
 
             token = await task1;
-            Assert.Equal("myaccesstoken2", token);
+            Assert.Equal("myaccesstoken2", token.Token);
 
             token = await task2;
-            Assert.Equal("myaccesstoken2", token);
+            Assert.Equal("myaccesstoken2", token.Token);
         }
 
         [Fact]

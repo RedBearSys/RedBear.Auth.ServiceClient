@@ -78,10 +78,10 @@ namespace RedBear.Auth.ServiceClient.Tokens
         /// If a token isn't available, it will try to obtain a new access token.
         /// </summary>
         /// <returns></returns>
-        public async Task<string> RetrieveAccessTokenAsync()
+        public async Task<AccessToken> RetrieveAccessTokenAsync()
         {
             if (_token != null)
-                return _token.Token;
+                return _token;
 
             // Use a semaphore so that only one instance of this code can be running at a time.
             await _receiveSemaphore.WaitAsync();
@@ -92,11 +92,11 @@ namespace RedBear.Auth.ServiceClient.Tokens
                 // we were waiting on the semaphore above. If so, nothing to do but return the
                 // new value.
                 if (_token != null)
-                    return _token.Token;
+                    return _token;
 
                 await StoreTokenAsync(await _client.GetAccessTokenAsync());
 
-                return _token.Token;
+                return _token;
             }
             finally
             {
