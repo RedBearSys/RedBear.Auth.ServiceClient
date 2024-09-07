@@ -21,5 +21,12 @@ namespace RedBear.Auth.ServiceClient.Io
         /// <param name="filename">The filename.</param>
         /// <returns></returns>
         TextReader Open(string filename);
+        
+        /// <summary>
+        /// Reads the specified cert.
+        /// </summary>
+        /// <param name="cert"></param>
+        /// <returns></returns>
+        TextReader Read(string cert);
     }
 }

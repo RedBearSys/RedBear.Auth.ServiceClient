@@ -43,6 +43,16 @@ namespace RedBear.Auth.ServiceClient
         public string CertificateFilePath { get; set; }
 
         /// <summary>
+        /// Gets or sets the .pem private key provided to you by Red Bear.
+        /// This should be stored securely - anybody who has access to it will be able
+        /// to access Red Bear's API servers.
+        /// </summary>
+        /// <value>
+        /// The certificate file path.
+        /// </value>
+        public string Certificate { get; set; }
+
+        /// <summary>
         /// Gets or sets the list of scopes. See the developer documentation for a full
         /// list of scopes on https://docs.redbear.co.uk/.
         /// </summary>

@@ -3,6 +3,7 @@ using RedBear.Auth.ServiceClient.Exceptions;
 using RedBear.Auth.ServiceClient.Io;
 using RedBear.Auth.ServiceClient.Net;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -67,6 +68,36 @@ namespace UnitTests
                 ClientId = "MyTempApp",
                 Audience = "https://auth.supplier.redbearapp.io",
                 CertificateFilePath = "ServiceApp.cer",
+                Subject = "you@your-domain.co.uk",
+                Scopes = new[] { "https://auth.supplier.redbearapp.io/UI" },
+                AuthServerUri = new Uri("https://auth.supplier.redbearapp.io/connect/token")
+            };
+
+            var client = new OAuth2Client(httpClient, reader, p);
+            var token = await client.GetAccessTokenAsync();
+
+            Assert.Equal("token", token.Token);
+            Assert.True(token.Expires > DateTime.UtcNow);
+        }
+
+        [Fact]
+        public async void AccessTokenReceivedSuccessfullyFromCert()
+        {
+            var httpClient = A.Fake<IHttpClient>();
+            A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(
+                new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{ \"access_token\" : \"token\", \"expires_in\" : 5000 }",
+                        Encoding.UTF8, "application/json")
+                });
+
+            var reader = new FileReader();
+
+            var p = new OAuth2Params
+            {
+                ClientId = "MyTempApp",
+                Audience = "https://auth.supplier.redbearapp.io",
+                Certificate = File.ReadAllText("ServiceApp.cer"),
                 Subject = "you@your-domain.co.uk",
                 Scopes = new[] { "https://auth.supplier.redbearapp.io/UI" },
                 AuthServerUri = new Uri("https://auth.supplier.redbearapp.io/connect/token")

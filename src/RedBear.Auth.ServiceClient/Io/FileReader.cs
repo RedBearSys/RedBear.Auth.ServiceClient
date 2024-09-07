@@ -29,6 +29,17 @@ namespace RedBear.Auth.ServiceClient.Io
             return Reader;
         }
 
+        /// <summary>
+        /// Reads the specified cert.
+        /// </summary>
+        /// <param name="cert"></param>
+        /// <returns></returns>
+        public TextReader Read(string cert)
+        {
+            Reader = new StringReader(cert);
+            return Reader;
+        }
+
         public void Dispose()
         {
             Reader?.Dispose();

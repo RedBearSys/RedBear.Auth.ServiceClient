@@ -104,7 +104,14 @@ namespace RedBear.Auth.ServiceClient
             var payloadEncoded = Base64UrlEncode(JsonConvert.SerializeObject(payload, Formatting.None, settings));
             var stringToSign = $"{headerEncoded}.{payloadEncoded}";
 
-            _fileReader.Open(_oauthParams.CertificateFilePath);
+            if (!string.IsNullOrWhiteSpace(_oauthParams.CertificateFilePath))
+            {
+                _fileReader.Open(_oauthParams.CertificateFilePath);
+            }
+            else
+            {
+                _fileReader.Read(_oauthParams.Certificate);
+            }
             var pemReader = new PemReader(_fileReader.Reader);
             var keyPair = (AsymmetricCipherKeyPair)pemReader.ReadObject();
 
