@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using FakeItEasy;
 using Xunit;
 using HttpClient = RedBear.Auth.ServiceClient.Net.HttpClient;
@@ -30,7 +31,7 @@ namespace UnitTests
         /// </summary>
         /// 
         //[Fact]
-        public async void IntegrationTest()
+        public async Task IntegrationTest()
         {
             var httpClient = new HttpClient();
             var reader = new FileReader();
@@ -51,7 +52,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public async void AccessTokenReceivedSuccessfully()
+        public async Task AccessTokenReceivedSuccessfully()
         {
             var httpClient = A.Fake<IHttpClient>();
             A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(
@@ -81,7 +82,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public async void AccessTokenReceivedSuccessfullyFromCert()
+        public async Task AccessTokenReceivedSuccessfullyFromCert()
         {
             var httpClient = A.Fake<IHttpClient>();
             A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(
@@ -111,7 +112,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public async void BadRequestFails()
+        public async Task BadRequestFails()
         {
             var httpClient = A.Fake<IHttpClient>();
             A.CallTo(() => httpClient.SendAsync(A<HttpRequestMessage>.Ignored)).Returns(

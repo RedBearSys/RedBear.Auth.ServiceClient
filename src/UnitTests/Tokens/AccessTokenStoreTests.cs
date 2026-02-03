@@ -10,7 +10,7 @@ namespace UnitTests.Tokens
     public class AccessTokenStoreTests
     {
         [Fact]
-        public async void ReceivesNewTokenUponExpiry()
+        public async Task ReceivesNewTokenUponExpiry()
         {
             var count = 0;
 
@@ -33,7 +33,7 @@ namespace UnitTests.Tokens
             Assert.Equal("myaccesstoken1", token.Token);
 
             // Access Token should have expired within this timeframe.
-            await Task.Delay(7000);
+            await Task.Delay(7000, TestContext.Current.CancellationToken);
 
             // This will force the store to get a new access token from the auth
             // server.
@@ -43,7 +43,7 @@ namespace UnitTests.Tokens
         }
 
         [Fact]
-        public async void ReceivesNewTokenUponExpiryWithConcurrency()
+        public async Task ReceivesNewTokenUponExpiryWithConcurrency()
         {
             var count = 0;
 
@@ -67,7 +67,7 @@ namespace UnitTests.Tokens
             Assert.Equal("myaccesstoken1", token.Token);
 
             // Access Token should have expired within this timeframe.
-            await Task.Delay(7000);
+            await Task.Delay(7000, TestContext.Current.CancellationToken);
 
             // This will force the store to get a new access token from the auth
             // server.
@@ -82,7 +82,7 @@ namespace UnitTests.Tokens
         }
 
         [Fact]
-        public async void ManuallyUpdateToken()
+        public async Task ManuallyUpdateToken()
         {
             var client = A.Fake<IOAuth2Client>();
 
