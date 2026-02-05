@@ -40,7 +40,7 @@ namespace RedBear.Auth.ServiceClient
         /// <value>
         /// The certificate file path.
         /// </value>
-        public string CertificateFilePath { get; set; }
+        public string Certificate { get; set; }
 
         /// <summary>
         /// Gets or sets the list of scopes. See the developer documentation for a full

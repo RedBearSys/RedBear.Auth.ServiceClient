@@ -1,4 +1,5 @@
-﻿using Org.BouncyCastle.Crypto;
+﻿using System.IO;
+using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
@@ -14,7 +15,7 @@ namespace RedBear.Auth.ServiceClient
     /// </summary>
     public class OAuth2Client : AbstractOAuth2Client
     {
-        private readonly IFileReader _fileReader;
+       // private readonly IFileReader _fileReader;
         private readonly OAuth2Params _oauthParams;
 
         /// <summary>
@@ -25,14 +26,17 @@ namespace RedBear.Auth.ServiceClient
         /// <param name="oauthParams">The oauth parameters.</param>
         public OAuth2Client(IHttpClient httpClient, IFileReader fileReader, OAuth2Params oauthParams) : base(httpClient, oauthParams)
         {
-            _fileReader = fileReader;
+         //   _fileReader = fileReader;
             _oauthParams = oauthParams;
         }
         
         public override Task<string> GenerateSignatureAsync(byte[] bytesToSign)
         {
-            _fileReader.Open(_oauthParams.CertificateFilePath);
-            var pemReader = new PemReader(_fileReader.Reader);
+//            _fileReader.Open(_oauthParams.CertificateFilePath);
+
+            var reader = new StringReader(_oauthParams.Certificate);
+
+            var pemReader = new PemReader(reader);
             var keyPair = (AsymmetricCipherKeyPair)pemReader.ReadObject();
 
             var privateKey = (RsaKeyParameters)keyPair.Private;
